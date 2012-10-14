@@ -1,0 +1,5 @@
+python-django-compressor (1.2-1) experimental; urgency=low
+
+  * Initial release.
+
+ -- Thomas Goirand <zigo@debian.org>  Sun, 14 Oct 2012 10:51:47 +0000

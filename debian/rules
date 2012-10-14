@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+DEBVERS := $(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
+VERSION := $(shell echo '$(DEBVERS)' | sed -e 's/^[[:digit:]]*://' -e 's/[~-].*//')
+DEBFLAVOR :=$(shell dpkg-parsechangelog | grep -E ^Distribution: | cut -d" " -f2)
+DEBPKGNAME :=$(shell dpkg-parsechangelog | grep -E ^Source: | cut -d" " -f2)
+
+%:
+	dh $@  --with python2
+
+get-orig-soruce:
+	uscan --verbose --force-download --rename --repack --download-current-version --destdir=../build-area
+
+dh_override_auto_tests:
+	nosetests
+
+get-vcs-source:
+	if ! git checkout master ; then \
+		git checkout -b master origin/master ; \
+	fi
+	if [ ! -f ../$(DEBPKGNAME)_$(VERSION).orig.tar.xz ] ; then \
+		git archive --prefix=$(DEBPKGNAME)-$(VERSION)/ $(VERSION) | xz >../$(DEBPKGNAME)_$(VERSION).orig.tar.xz ; \
+	fi
+	git checkout debian/experimental

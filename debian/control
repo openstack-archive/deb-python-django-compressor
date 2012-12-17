@@ -14,6 +14,7 @@ Homepage: http://pypi.python.org/pypi/django_compressor/
 
 Package: python-compressor
 Architecture: all
+Pre-Depends: dpkg (>= 1.15.6~)
 Depends: ${python:Depends}, ${misc:Depends}, python-django (>= 1.1), python-appconf
 Provides: ${python:Provides}
 Description: Compresses linked and inline JavaScript or CSS into single cached files

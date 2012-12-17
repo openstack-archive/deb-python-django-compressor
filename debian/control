@@ -6,7 +6,7 @@ Uploaders: Julien Danjou <acid@debian.org>,
            Thomas Goirand <zigo@debian.org>,
            Ghe Rivero <ghe.rivero@stackops.com>,
            Mehdi Abaakouk <sileht@sileht.net>
-Build-Depends: debhelper (>= 8), python-setuptools,  python-all (>= 2.6.6-3~), python-nose
+Build-Depends: debhelper (>= 9), python-setuptools,  python-all (>= 2.6.6-3~), python-nose, openstack-pkg-tools
 Standards-Version: 3.9.3
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=openstack/python-django-compressor.git;a=summary
 Vcs-Git: git://anonscm.debian.org/openstack/python-django-compressor.git
@@ -16,7 +16,7 @@ Package: python-compressor
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-django (>= 1.1), python-appconf
 Provides: ${python:Provides}
-Description: Compresses linked and inline JavaScript or CSS into single cached files.
+Description: Compresses linked and inline JavaScript or CSS into single cached files
  Django Compressor combines and compresses linked and inline Javascript or CSS
  in a Django templates into cacheable static files by using the compress
  template tag.

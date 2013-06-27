@@ -10,6 +10,6 @@ include /usr/share/openstack-pkg-tools/pkgos.make
 	dh $@  --with python2
 
 override_dh_auto_test:
-	nosetests
+	PYTHONPATH=$$PYTHONPATH:. DJANGO_SETTINGS_MODULE=$(CURDIR)/compressor nosetests
 
 override_dh_auto_build:

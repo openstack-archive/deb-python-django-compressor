@@ -10,6 +10,6 @@ include /usr/share/openstack-pkg-tools/pkgos.make
 	dh $@  --with python2
 
 override_dh_auto_test:
-	PYTHONPATH=$$PYTHONPATH:. DJANGO_SETTINGS_MODULE=$(CURDIR)/compressor nosetests
+	PYTHONPATH=$PYTHONPATH:. python /usr/share/pyshared/django/bin/django-admin.py test --settings=compressor.test_settings compressor
 
 override_dh_auto_build:

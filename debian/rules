@@ -11,6 +11,7 @@ include /usr/share/openstack-pkg-tools/pkgos.make
 
 override_dh_auto_test:
 	PYTHONPATH=$PYTHONPATH:. python /usr/share/pyshared/django/bin/django-admin.py test --settings=compressor.test_settings compressor
+	rm -rf $(CURDIR)/compressor/tests/static/CACHE
 
 override_dh_auto_build:
 

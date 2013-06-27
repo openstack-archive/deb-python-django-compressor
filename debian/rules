@@ -9,5 +9,7 @@ include /usr/share/openstack-pkg-tools/pkgos.make
 %:
 	dh $@  --with python2
 
-dh_override_auto_tests:
+override_dh_auto_test:
 	nosetests
+
+override_dh_auto_build:

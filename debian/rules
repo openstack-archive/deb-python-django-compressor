@@ -13,3 +13,9 @@ override_dh_auto_test:
 	PYTHONPATH=$PYTHONPATH:. python /usr/share/pyshared/django/bin/django-admin.py test --settings=compressor.test_settings compressor
 
 override_dh_auto_build:
+
+override_dh_install:
+	set -e ; for i in `pyversions -s` ; do \
+		$$i setup.py install --install-layout=deb --root=debian/python-compressor ; \
+	done
+	find debian/python-compressor -iname '*.pyc' -delete

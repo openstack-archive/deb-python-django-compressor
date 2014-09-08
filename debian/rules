@@ -11,7 +11,8 @@ include /usr/share/openstack-pkg-tools/pkgos.make
 
 ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 override_dh_auto_test:
-	PYTHONPATH=$PYTHONPATH:. python /usr/share/pyshared/django/bin/django-admin.py test --settings=compressor.test_settings compressor || true
+	PYTHONPATH=. python-coverage run --branch --source=compressor /usr/bin/django-admin test --settings=compressor.test_settings compressor
+	#PYTHONPATH=$PYTHONPATH:. python /usr/share/pyshared/django/bin/django-admin.py test --settings=compressor.test_settings compressor || true
 	rm -rf $(CURDIR)/compressor/tests/static/CACHE
 endif
 

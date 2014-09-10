@@ -1,3 +1,11 @@
+python-django-compressor (1.4-2) unstable; urgency=medium
+
+  * Fixed Django 1.7 compat in test_settings.py. (Closes: #755622)
+  * Added build-depends: csstidy, python-coffin, python-jingo
+  * Runs the unit tests correctly now.
+
+ -- Thomas Goirand <zigo@debian.org>  Mon, 08 Sep 2014 17:31:54 +0000
+
 python-django-compressor (1.4-1) unstable; urgency=medium
 
   * New upstream release.

@@ -1,0 +1,16 @@
+Description: Fix test_settings.py for Django 1.7 compat
+Author: Thomas Goirand <zigo@debian.org>
+Forwarded: no
+Last-Update: 2014-09-09
+
+--- python-django-compressor-1.4.orig/compressor/test_settings.py
++++ python-django-compressor-1.4/compressor/test_settings.py
+@@ -3,7 +3,7 @@ import django
+ 
+ TEST_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'tests')
+ 
+-COMPRESS_CACHE_BACKEND = 'locmem://'
++COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.CacheClass'
+ 
+ DATABASES = {
+     'default': {

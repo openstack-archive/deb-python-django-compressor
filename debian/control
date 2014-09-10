@@ -7,20 +7,20 @@ Build-Depends: debhelper (>= 9),
                openstack-pkg-tools,
                python-all (>= 2.6.6-3~),
                python-setuptools
-Build-Depends-Indep: python-appconf,
+Build-Depends-Indep: csstidy,
+                     python-appconf,
                      python-beautifulsoup,
+                     python-coffin,
                      python-coverage,
                      python-django,
                      python-django-discover-runner,
                      python-html5lib,
+                     python-jingo,
                      python-jinja2,
                      python-lxml,
                      python-mock,
                      python-nose,
-                     python-unittest2,
- csstidy,
- python-coffin,
- python-jingo
+                     python-unittest2
 Standards-Version: 3.9.5
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=openstack/python-django-compressor.git;a=summary
 Vcs-Git: git://anonscm.debian.org/openstack/python-django-compressor.git

@@ -5,6 +5,7 @@ python-django-compressor (1.5-1) unstable; urgency=medium
   * Removed django 1.7 patche.
   * Added patch to not run a unit test that fails:
     - compressor.tests.test_base.JsAsyncDeferTestCase
+  * Fixed PyPi watch file.
 
  -- Thomas Goirand <zigo@debian.org>  Tue, 04 Aug 2015 08:17:03 +0000
 

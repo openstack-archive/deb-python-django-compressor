@@ -45,11 +45,27 @@ Homepage: http://pypi.python.org/pypi/django_compressor/
 Package: python-compressor
 Architecture: all
 Depends: python-appconf,
-         python-django (>= 1.1),
+         python-django,
          ${misc:Depends},
          ${python:Depends}
 Provides: ${python:Provides}
-Description: Compresses linked and inline JavaScript or CSS into single cached files
+Description: Compresses linked, inline JavaScript or CSS into single cached files - Python 2.7
  Django Compressor combines and compresses linked and inline Javascript or CSS
  in a Django templates into cacheable static files by using the compress
  template tag.
+ .
+ This package contains the Python 2.7 module.
+
+Package: python3-compressor
+Architecture: all
+Depends: python3-appconf,
+         python3-django,
+         ${misc:Depends},
+         ${python3:Depends}
+Provides: ${python:Provides}
+Description: Compresses linked, inline JavaScript or CSS into single cached files - Python 3.x
+ Django Compressor combines and compresses linked and inline Javascript or CSS
+ in a Django templates into cacheable static files by using the compress
+ template tag.
+ .
+ This package contains the Python 3.x module.

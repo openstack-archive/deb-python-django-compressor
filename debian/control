@@ -37,7 +37,7 @@ Build-Depends-Indep: csstidy,
                      python3-mock,
                      python3-nose,
                      python3-unittest2
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=openstack/python-django-compressor.git;a=summary
 Vcs-Git: git://anonscm.debian.org/openstack/python-django-compressor.git
 Homepage: http://pypi.python.org/pypi/django_compressor/
@@ -49,7 +49,7 @@ Depends: python-appconf,
          ${misc:Depends},
          ${python:Depends}
 Provides: ${python:Provides}
-Description: Compresses linked, inline JavaScript or CSS into single cached files - Python 2.7
+Description: Compresses linked, inline JS or CSS into single cached files - Python 2.7
  Django Compressor combines and compresses linked and inline Javascript or CSS
  in a Django templates into cacheable static files by using the compress
  template tag.
@@ -63,7 +63,7 @@ Depends: python3-appconf,
          ${misc:Depends},
          ${python3:Depends}
 Provides: ${python:Provides}
-Description: Compresses linked, inline JavaScript or CSS into single cached files - Python 3.x
+Description: Compresses linked, inline JS or CSS into single cached files - Python 3.x
  Django Compressor combines and compresses linked and inline Javascript or CSS
  in a Django templates into cacheable static files by using the compress
  template tag.

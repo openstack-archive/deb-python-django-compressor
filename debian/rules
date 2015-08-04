@@ -23,7 +23,7 @@ ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 #	rm -rf $(CURDIR)/compressor/tests/static/CACHE
 endif
 
-override_auto_dh_install:
+override_dh_install:
 	set -e ; for pyvers in $(PYTHONS); do \
 		python$$pyvers setup.py install --install-layout=deb \
 			--root $(CURDIR)/debian/python-compressor; \

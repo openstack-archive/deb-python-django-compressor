@@ -23,6 +23,8 @@ ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 #	rm -rf $(CURDIR)/compressor/tests/static/CACHE
 endif
 
+override_dh_auto_build:
+
 override_dh_install:
 	set -e ; for pyvers in $(PYTHONS); do \
 		python$$pyvers setup.py install --install-layout=deb \
@@ -32,20 +34,9 @@ override_dh_install:
 		python$$pyvers setup.py install --install-layout=deb \
 			--root $(CURDIR)/debian/python3-compressor; \
 	done
-
-override_dh_auto_build:
-
-override_dh_install:
-	set -e ; for i in `pyversions -s` ; do \
-		$$i setup.py install --install-layout=deb --root=debian/python-compressor ; \
-		rm -f $(CURDIR)/debian/usr/lib/$$i/dist-packages/compressor/tests/static/CACHE/css/* ; \
-		rm -f $(CURDIR)/debian/usr/lib/$$i/dist-packages/compressor/tests/static/CACHE/js/* ; \
-	done
-	find debian/python-compressor -iname '*.pyc' -delete
-
-override_dh_usrlocal:
-	rm -f $(CURDIR)/debian/usr/share/pyshared/compressor/tests/static/CACHE/css/*
-	rm -f $(CURDIR)/debian/usr/share/pyshared/compressor/tests/static/CACHE/js/*
+	rm -f $(CURDIR)/debian/usr/lib/python*/dist-packages/compressor/tests/static/CACHE/css/*
+	rm -f $(CURDIR)/debian/usr/lib/python*/dist-packages/compressor/tests/static/CACHE/js/*
+	find debian -iname '*.pyc' -delete
 
 # Commands not to run
 override_dh_installcatalogs:

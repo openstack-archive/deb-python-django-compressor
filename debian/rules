@@ -1,13 +1,14 @@
 #!/usr/bin/make -f
 
-#export DH_VERBOSE=1
+PYTHONS:=$(shell pyversions -vr)
+PYTHON3S:=$(shell py3versions -vr)
 
 UPSTREAM_GIT = git://github.com/jezdez/django_compressor.git
 
 include /usr/share/openstack-pkg-tools/pkgos.make
 
 %:
-	dh $@  --with python2
+	dh $@ --buildsystem=python_distutils --with python2,python3
 
 override_dh_clean:
 	dh_clean
@@ -16,9 +17,18 @@ override_dh_clean:
 override_dh_auto_test:
 ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 	PYTHONPATH=. python-coverage run --branch --source=compressor /usr/bin/django-admin test --settings=compressor.test_settings compressor
-	#PYTHONPATH=$PYTHONPATH:. python /usr/share/pyshared/django/bin/django-admin.py test --settings=compressor.test_settings compressor || true
 	rm -rf $(CURDIR)/compressor/tests/static/CACHE
 endif
+
+override_auto_dh_install:
+	set -e ; for pyvers in $(PYTHONS); do \
+		python$$pyvers setup.py install --install-layout=deb \
+			--root $(CURDIR)/debian/python-compressor; \
+	done
+	set -e ; for pyvers in $(PYTHON3S); do \
+		python$$pyvers setup.py install --install-layout=deb \
+			--root $(CURDIR)/debian/python3-compressor; \
+	done
 
 override_dh_auto_build:
 

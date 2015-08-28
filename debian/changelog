@@ -1,3 +1,9 @@
+python-django-compressor (1.5-2) unstable; urgency=medium
+
+  * More robust watch file thanks to James Page (Closes: #796249).
+
+ -- Thomas Goirand <zigo@debian.org>  Fri, 28 Aug 2015 15:52:25 +0000
+
 python-django-compressor (1.5-1) unstable; urgency=medium
 
   * New upstream release.

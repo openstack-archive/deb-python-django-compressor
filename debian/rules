@@ -28,11 +28,11 @@ override_dh_auto_build:
 override_dh_install:
 	set -e ; for pyvers in $(PYTHONS); do \
 		python$$pyvers setup.py install --install-layout=deb \
-			--root $(CURDIR)/debian/python-compressor; \
+			--root $(CURDIR)/debian/python-django-compressor; \
 	done
 	set -e ; for pyvers in $(PYTHON3S); do \
 		python$$pyvers setup.py install --install-layout=deb \
-			--root $(CURDIR)/debian/python3-compressor; \
+			--root $(CURDIR)/debian/python3-django-compressor; \
 	done
 	rm -f $(CURDIR)/debian/usr/lib/python*/dist-packages/compressor/tests/static/CACHE/css/*
 	rm -f $(CURDIR)/debian/usr/lib/python*/dist-packages/compressor/tests/static/CACHE/js/*

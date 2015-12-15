@@ -1,0 +1,52 @@
+Description: Fix unitttest import
+ Django 1.9 doesn't have django.utils.unittest anymore.
+Author: Thomas Goirand <zigo@debian.org>
+Forwarded: no
+Last-Update: 2015-12-15
+
+--- python-django-compressor-1.5.orig/compressor/tests/test_filters.py
++++ python-django-compressor-1.5/compressor/tests/test_filters.py
+@@ -7,7 +7,7 @@ import textwrap
+ 
+ from django.utils import six
+ from django.test import TestCase
+-from django.utils import unittest
++import unittest
+ from django.test.utils import override_settings
+ 
+ from compressor.cache import get_hashed_mtime, get_hashed_content
+--- python-django-compressor-1.5.orig/compressor/tests/test_jinja2ext.py
++++ python-django-compressor-1.5/compressor/tests/test_jinja2ext.py
+@@ -4,7 +4,8 @@ from __future__ import with_statement, u
+ import sys
+ 
+ from django.test import TestCase
+-from django.utils import unittest, six
++from django.utils import six
++import unittest
+ from django.test.utils import override_settings
+ 
+ from compressor.conf import settings
+--- python-django-compressor-1.5.orig/compressor/tests/test_offline.py
++++ python-django-compressor-1.5/compressor/tests/test_offline.py
+@@ -7,7 +7,8 @@ import django
+ from django.core.management.base import CommandError
+ from django.template import Template, Context
+ from django.test import TestCase
+-from django.utils import six, unittest
++from django.utils import six
++import unittest
+ 
+ from compressor.cache import flush_offline_manifest, get_offline_manifest
+ from compressor.conf import settings
+--- python-django-compressor-1.5.orig/compressor/tests/test_parsers.py
++++ python-django-compressor-1.5/compressor/tests/test_parsers.py
+@@ -16,7 +16,7 @@ try:
+ except ImportError:
+     BeautifulSoup = None
+ 
+-from django.utils import unittest
++import unittest
+ from django.test.utils import override_settings
+ 
+ from compressor.base import SOURCE_HUNK, SOURCE_FILE

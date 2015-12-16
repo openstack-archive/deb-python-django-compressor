@@ -1,0 +1,61 @@
+Description: Fix import of unittest module
+ Django 1.9 has unittest removed from django.utils, which creates FTBFS
+ with this package. This patch fixes that.
+Author: Thomas Goirand <zigo@debian.org>
+Forwarded: no
+Last-Update: 2015-12-15
+
+--- python-django-compressor-1.6.orig/compressor/tests/test_filters.py
++++ python-django-compressor-1.6/compressor/tests/test_filters.py
+@@ -7,7 +7,7 @@ import textwrap
+ 
+ from django.utils import six
+ from django.test import TestCase
+-from django.utils import unittest
++import unittest
+ from django.test.utils import override_settings
+ 
+ from compressor.cache import cache, get_hashed_mtime, get_hashed_content
+--- python-django-compressor-1.6.orig/compressor/tests/test_jinja2ext.py
++++ python-django-compressor-1.6/compressor/tests/test_jinja2ext.py
+@@ -4,7 +4,8 @@ from __future__ import with_statement, u
+ import sys
+ 
+ from django.test import TestCase
+-from django.utils import unittest, six
++from django.utils import six
++import unittest
+ from django.test.utils import override_settings
+ 
+ from compressor.conf import settings
+--- python-django-compressor-1.6.orig/compressor/tests/test_offline.py
++++ python-django-compressor-1.6/compressor/tests/test_offline.py
+@@ -7,7 +7,8 @@ import django
+ from django.core.management.base import CommandError
+ from django.template import Template, Context
+ from django.test import TestCase
+-from django.utils import six, unittest
++from django.utils import six
++import unittest
+ from django.utils.importlib import import_module
+ 
+ from compressor.cache import flush_offline_manifest, get_offline_manifest
+--- python-django-compressor-1.6.orig/compressor/tests/test_parsers.py
++++ python-django-compressor-1.6/compressor/tests/test_parsers.py
+@@ -11,7 +11,7 @@ try:
+ except ImportError:
+     html5lib = None
+ 
+-from django.utils import unittest
++import unittest
+ from django.test.utils import override_settings
+ 
+ from compressor.base import SOURCE_HUNK, SOURCE_FILE
+--- python-django-compressor-1.6.orig/compressor/tests/test_utils.py
++++ python-django-compressor-1.6/compressor/tests/test_utils.py
+@@ -1,4 +1,4 @@
+-from django.utils import unittest
++import unittest
+ from django.test import TestCase
+ from django.test.utils import override_settings
+ from django.conf import settings

@@ -1,4 +1,4 @@
-python-django-compressor (1.6-1) unstable; urgency=medium
+python-django-compressor (1.6+2015.12.15.git.66feba0db5-1) unstable; urgency=medium
 
   * New upstream release.
   * Added patch to stop using removed django.utils.unittest.

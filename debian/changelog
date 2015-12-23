@@ -1,7 +1,13 @@
 python-django-compressor (1.6+2015.12.22.git.94755c5aa6-1) unstable; urgency=medium
 
-  * New upstream release.
-  * Added patch to stop using removed django.utils.unittest.
+  * New upstream release based on commit 94755c5aa6 (Closes: #807355).
+  * Added new (build-)dependencies:
+    - python-django-overextends
+    - python-django-sekizai
+    - python-rjsmin
+    - python-rcssmin
+    - python-csscompressor
+  * Upped the min required version for python-coffin.
 
  -- Thomas Goirand <zigo@debian.org>  Tue, 15 Dec 2015 16:13:22 +0000
 

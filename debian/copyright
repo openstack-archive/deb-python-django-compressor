@@ -6,10 +6,6 @@ Files: debian/*
 Copyright: (c) 2012, Thomas Goirand <zigo@debian.org>
 License: MIT
 
-Files: compressor/filters/jsmin/rjsmin.py
-Copyright: 2006-2011, André Malo
-License: Apache-2.0
-
 Files: compressor/filters/cssmin/*
 Copyright: (c) 2010 Zachary Voase
 License: MIT

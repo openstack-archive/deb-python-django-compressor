@@ -2,6 +2,7 @@ python-django-compressor (2.0-1) unstable; urgency=medium
 
   * New upstream release.
   * Removed compressor/filters/jsmin/rjsmin.py from d/copyright.
+  * Removed compressor/utils/stringformat.py from d/copyright.
 
  -- Thomas Goirand <zigo@debian.org>  Mon, 11 Jan 2016 02:57:22 +0000
 

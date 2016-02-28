@@ -50,7 +50,7 @@ Build-Depends-Indep: csstidy,
 Standards-Version: 3.9.6
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=openstack/python-django-compressor.git;a=summary
 Vcs-Git: git://anonscm.debian.org/openstack/python-django-compressor.git
-Homepage: http://pypi.python.org/pypi/django_compressor/
+Homepage: https://pypi.python.org/pypi/django_compressor/
 
 Package: python-django-compressor
 Architecture: all

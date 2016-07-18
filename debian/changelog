@@ -8,7 +8,7 @@ python-django-compressor (2.0-2) UNRELEASED; urgency=medium
 
   [ Ivan Udovichenko ]
   * d/patches: Add 0001-Use-argparse-instead-of-optparse.patch file
-      to fix issues with Django 1.10 .
+      to fix issues with Django 1.10. (Closes: #828662)
 
  -- Ivan Udovichenko <iudovichenko@mirantis.com>  Tue, 19 Jul 2016 02:50:45 +0300
 

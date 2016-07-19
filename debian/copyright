@@ -2,8 +2,16 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: python-django-compressor
 Source: https://pypi.python.org/pypi/django_compressor/
 
+Files: *
+Copyright: 2009-2011 django_compressor authors (see AUTHORS file)
+           2008 Andreas Pelme <andreas@pelme.se>
+           2006-2011 André Malo or his licensors, as applicable
+           2009-2011 Ask Solem and contributors.
+           2010 by Florent Xicluna.
+License: MIT
+
 Files: debian/*
-Copyright: (c) 2012, Thomas Goirand <zigo@debian.org>
+Copyright: (c) 2012-2016, Thomas Goirand <zigo@debian.org>
 License: MIT
 
 Files: compressor/filters/cssmin/*
@@ -13,14 +21,6 @@ License: MIT
 Files: compressor/utils/decorators.py
 Copyright:  2009-2011, Ask Solem and contributors
 License: BSD-2-clauses
-
-Files: *
-Copyright: 2009-2011 django_compressor authors (see AUTHORS file)
-           2008 Andreas Pelme <andreas@pelme.se>
-           2006-2011 André Malo or his licensors, as applicable
-           2009-2011 Ask Solem and contributors.
-           2010 by Florent Xicluna.
-License: MIT
 
 License: MIT
  Permission is hereby granted, free of charge, to any person obtaining a copy

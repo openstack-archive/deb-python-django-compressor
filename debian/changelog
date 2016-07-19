@@ -1,4 +1,4 @@
-python-django-compressor (2.0-2) unstable; urgency=medium
+python-django-compressor (2.0-3) UNRELEASED; urgency=medium
 
   [ Ondřej Nový ]
   * Fixed homepage (https).
@@ -10,7 +10,10 @@ python-django-compressor (2.0-2) unstable; urgency=medium
   * d/patches: Add 0001-Use-argparse-instead-of-optparse.patch file
       to fix issues with Django 1.10. (Closes: #828662)
 
- -- Ivan Udovichenko <iudovichenko@mirantis.com>  Tue, 19 Jul 2016 07:55:44 +0000
+  [ Thomas Goirand ]
+  * Also run tests in Py3.
+
+ -- Thomas Goirand <zigo@debian.org>  Tue, 19 Jul 2016 07:58:13 +0000
 
 python-django-compressor (2.0-1) unstable; urgency=medium
 

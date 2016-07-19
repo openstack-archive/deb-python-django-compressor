@@ -1,3 +1,9 @@
+python-django-compressor (2.0-3) unstable; urgency=medium
+
+  * Fixed patch header for 0001-Use-argparse-instead-of-optparse.patch.
+
+ -- Thomas Goirand <zigo@debian.org>  Tue, 19 Jul 2016 09:59:15 +0000
+
 python-django-compressor (2.0-2) unstable; urgency=medium
 
   [ Ondřej Nový ]

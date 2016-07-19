@@ -1,11 +1,9 @@
-From 46232f9fc8c0b49c29732c9cad1d86b714e6711c Mon Sep 17 00:00:00 2001
-From: Ivan Udovichenko <iudovichenko@mirantis.com>
+Description: Fixing 1.10 compatibility issues relating to Django's
+ dropping of optparse in favour of argparse.
+Author: James Addison <addi00+github.com@gmail.com>
 Date: Tue, 19 Jul 2016 02:32:36 +0300
-Subject: [PATCH] Use argparse instead of optparse
-
----
- compressor/management/commands/compress.py | 42 +++++++++++++++---------------
- 1 file changed, 21 insertions(+), 21 deletions(-)
+Origin: https://github.com/django-compressor/django-compressor/commit/e86ccfd29c3a4695f315637295c3d5ab20484e6c
+Last-Update: 2016-07-19
 
 diff --git a/compressor/management/commands/compress.py b/compressor/management/commands/compress.py
 index a6fb1a1..a05e991 100644

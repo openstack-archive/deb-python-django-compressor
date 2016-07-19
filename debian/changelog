@@ -14,6 +14,7 @@ python-django-compressor (2.0-2) unstable; urgency=medium
   * Also run tests in Py3.
   * Using pkgos-dh_auto_install from openstack-pkg-tools >= 52~.
   * Fixed debian/copyright ordering.
+  * Standards-Version is now 3.9.8 (no change).
 
  -- Thomas Goirand <zigo@debian.org>  Tue, 19 Jul 2016 07:58:13 +0000
 

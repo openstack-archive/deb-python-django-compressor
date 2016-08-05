@@ -1,3 +1,10 @@
+python-django-compressor (2.0-4) UNRELEASED; urgency=medium
+
+  * Drop dependencies on django-overextends, as support was dropped
+    upstream in the 2.0 release.
+
+ -- James Page <james.page@ubuntu.com>  Fri, 05 Aug 2016 09:16:21 +0100
+
 python-django-compressor (2.0-3) unstable; urgency=medium
 
   * Fixed patch header for 0001-Use-argparse-instead-of-optparse.patch.

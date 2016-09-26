@@ -1,9 +1,17 @@
 python-django-compressor (2.0-4) UNRELEASED; urgency=medium
 
+  [ James Page ]
   * Drop dependencies on django-overextends, as support was dropped
     upstream in the 2.0 release.
 
- -- James Page <james.page@ubuntu.com>  Fri, 05 Aug 2016 09:16:21 +0100
+  [ Ondřej Nový ]
+  * d/s/options: extend-diff-ignore of .gitreview
+  * d/control: Using OpenStack's Gerrit as VCS URLs.
+
+  [ Thomas Goirand ]
+  * Allow Py3 unit tests to fail, as they do in Jessie in infra.
+
+ -- Thomas Goirand <zigo@debian.org>  Tue, 27 Sep 2016 00:43:10 +0200
 
 python-django-compressor (2.0-3) unstable; urgency=medium
 

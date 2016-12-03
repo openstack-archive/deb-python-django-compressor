@@ -1,5 +1,6 @@
 from __future__ import with_statement, unicode_literals
 import copy
+import django
 import io
 import os
 import sys
@@ -7,11 +8,12 @@ import unittest
 from importlib import import_module
 
 from mock import patch
-from unittest import SkipTest
+from unittest import SkipTest, skipIf
 
 from django.core.management.base import CommandError
 from django.template import Template, Context
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.utils import six
 
 from compressor.cache import flush_offline_manifest, get_offline_manifest
@@ -118,10 +120,14 @@ class OfflineTestCaseMixin(object):
             default_storage.delete(manifest_path)
 
     def _prepare_contexts(self, engine):
+        contexts = settings.COMPRESS_OFFLINE_CONTEXT
+        if not isinstance(contexts, (list, tuple)):
+            contexts = [contexts]
+
         if engine == 'django':
-            return [Context(settings.COMPRESS_OFFLINE_CONTEXT)]
+            return [Context(c) for c in contexts]
         if engine == 'jinja2':
-            return [settings.COMPRESS_OFFLINE_CONTEXT]
+            return contexts
         return None
 
     def _render_template(self, engine):
@@ -431,6 +437,40 @@ class OfflineCompressTestCaseWithContextGeneratorSuper(
     engines = ('django',)
 
 
+class OfflineCompressTestCaseWithContextVariableInheritance(
+        OfflineTestCaseMixin, TestCase):
+    templates_dir = 'test_with_context_variable_inheritance'
+    additional_test_settings = {
+        'COMPRESS_OFFLINE_CONTEXT': {
+            'parent_template': 'base.html',
+        }
+    }
+
+    def _test_offline(self, engine):
+        count, result = CompressCommand().compress(
+            log=self.log, verbosity=self.verbosity, engine=engine)
+        self.assertEqual(1, count)
+        self.assertEqual(['<script type="text/javascript" src="/static/CACHE/js/'
+                          'ea3267f3e9dd.js"></script>'], result)
+        rendered_template = self._render_template(engine)
+        self.assertEqual(rendered_template, '\n' + result[0] + '\n')
+
+
+class OfflineCompressTestCaseWithContextVariableInheritanceSuper(
+        OfflineTestCaseMixin, TestCase):
+    templates_dir = 'test_with_context_variable_inheritance_super'
+    additional_test_settings = {
+        'COMPRESS_OFFLINE_CONTEXT': [{
+            'parent_template': 'base1.html',
+        }, {
+            'parent_template': 'base2.html',
+        }]
+    }
+    expected_hash = ['7d1416cab12e', 'a31eb23d0157']
+    # Block.super not supported for Jinja2 yet.
+    engines = ('django',)
+
+
 class OfflineCompressTestCaseWithContextGeneratorImportError(
         OfflineTestCaseMixin, TestCase):
     templates_dir = 'test_with_context'
@@ -629,3 +669,27 @@ class OfflineCompressComplexTestCase(OfflineTestCaseMixin, TestCase):
         rendered_template = self._render_template(engine)
         result = (result[0], result[2])
         self.assertEqual(rendered_template, ''.join(result) + '\n')
+
+
+@skipIf(django.VERSION < (1, 9), "Needs Django >= 1.9, recursive templates were fixed in Django 1.9")
+class OfflineCompressExtendsRecursionTestCase(OfflineTestCaseMixin, TestCase):
+    """
+        Test that templates extending templates with the same name
+        (e.g. admin/index.html) don't cause an infinite test_extends_recursion
+    """
+    templates_dir = 'test_extends_recursion'
+    engines = ('django',)
+
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.staticfiles',
+        'compressor',
+    ]
+
+    @override_settings(INSTALLED_APPS=INSTALLED_APPS)
+    def _test_offline(self, engine):
+        count, result = CompressCommand().compress(
+            log=self.log, verbosity=self.verbosity, engine=engine)
+        self.assertEqual(count, 1)

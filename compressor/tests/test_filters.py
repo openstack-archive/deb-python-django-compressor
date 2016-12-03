@@ -3,8 +3,10 @@ from collections import defaultdict
 import io
 import os
 import sys
+import mock
 
 from django.utils import six
+from django.utils.encoding import smart_text
 from django.test import TestCase
 from django.test.utils import override_settings
 
@@ -40,6 +42,15 @@ class PrecompilerTestCase(TestCase):
         self.filename = os.path.join(test_dir, filename)
         with io.open(self.filename, encoding=settings.FILE_CHARSET) as file:
             self.content = file.read()
+
+    def test_precompiler_dict_options(self):
+        command = "%s %s {option}" % (sys.executable, self.test_precompiler)
+        option = ("option", "option",)
+        CompilerFilter.options = dict([option])
+        compiler = CompilerFilter(
+            content=self.content, filename=self.filename,
+            charset=settings.FILE_CHARSET, command=command)
+        self.assertIn(option, compiler.options)
 
     def test_precompiler_infile_outfile(self):
         command = '%s %s -f {infile} -o {outfile}' % (sys.executable, self.test_precompiler)
@@ -102,6 +113,15 @@ class PrecompilerTestCase(TestCase):
         compiler = CachedCompilerFilter(command=command, **self.cached_precompiler_args)
         self.assertEqual("body { color:#990; }", compiler.input())
         self.assertIsNotNone(compiler.infile)  # Not cached
+
+    @mock.patch('django.core.cache.backends.locmem.LocMemCache.get')
+    def test_precompiler_cache_issue750(self, mock_cache):
+        # emulate memcached and return string
+        mock_cache.side_effect = (lambda key: str("body { color:#990; }"))
+        command = '%s %s -f {infile} -o {outfile}' % (sys.executable, self.test_precompiler)
+        compiler = CachedCompilerFilter(command=command, **self.cached_precompiler_args)
+        self.assertEqual("body { color:#990; }", compiler.input())
+        self.assertEqual(type(compiler.input()), type(smart_text("body { color:#990; }")))
 
     def test_precompiler_not_cacheable(self):
         command = '%s %s -f {infile} -o {outfile}' % (sys.executable, self.test_precompiler)
@@ -260,6 +280,16 @@ class CssAbsolutizingTestCase(TestCase):
     def test_css_absolute_filter_only_url_fragment(self):
         filename = os.path.join(settings.COMPRESS_ROOT, 'css/url/test.css')
         content = "p { background: url('#foo') }"
+        filter = CssAbsoluteFilter(content)
+        self.assertEqual(content, filter.input(filename=filename, basename='css/url/test.css'))
+
+        with self.settings(COMPRESS_URL='http://media.example.com/'):
+            filter = CssAbsoluteFilter(content)
+            self.assertEqual(content, filter.input(filename=filename, basename='css/url/test.css'))
+
+    def test_css_absolute_filter_only_url_fragment_wrap_double_quotes(self):
+        filename = os.path.join(settings.COMPRESS_ROOT, 'css/url/test.css')
+        content = 'p { background: url("#foo") }'
         filter = CssAbsoluteFilter(content)
         self.assertEqual(content, filter.input(filename=filename, basename='css/url/test.css'))
 

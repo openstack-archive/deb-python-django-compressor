@@ -126,7 +126,7 @@ class CompilerFilter(FilterBase):
         if isinstance(self.options, dict):
             # turn dict into a tuple
             new_options = ()
-            for item in kwargs.items():
+            for item in self.options.items():
                 new_options += (item,)
             self.options = new_options
 
@@ -221,7 +221,7 @@ class CachedCompilerFilter(CompilerFilter):
             key = self.get_cache_key()
             data = cache.get(key)
             if data is not None:
-                return data
+                return smart_text(data)
             filtered = super(CachedCompilerFilter, self).input(**kwargs)
             cache.set(key, filtered, settings.COMPRESS_REBUILD_TIMEOUT)
             return filtered

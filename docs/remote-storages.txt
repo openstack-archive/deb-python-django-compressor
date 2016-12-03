@@ -1,6 +1,6 @@
 .. _remote_storages:
 
-Remote storages
+Remote Storages
 ---------------
 
 In some cases it's useful to use a CDN_ for serving static files such as
@@ -17,7 +17,7 @@ django-storages
 ^^^^^^^^^^^^^^^
 
 So assuming your CDN is `Amazon S3`_, you can use the boto_ storage backend
-from the 3rd party app `django-storages-redux`_. Some required settings are::
+from the 3rd party app `django-storages`_. Some required settings are::
 
     AWS_ACCESS_KEY_ID = 'XXXXXXXXXXXXXXXXXXXXX'
     AWS_SECRET_ACCESS_KEY = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
@@ -47,11 +47,11 @@ apps can be integrated.
 
 #. Make sure the :attr:`~django.conf.settings.COMPRESS_ROOT` and STATIC_ROOT_
    settings are equal since both apps need to look at the same directories
-   when to do their job.
+   when doing their job.
 
 #. You need to create a subclass of the remote storage backend you want
    to use; below is an example of the boto S3 storage backend from
-   django-storages-redux_::
+   django-storages_::
 
     from django.core.files.storage import get_storage_class
     from storages.backends.s3boto import S3BotoStorage
@@ -66,8 +66,8 @@ apps can be integrated.
                 "compressor.storage.CompressorFileStorage")()
 
         def save(self, name, content):
-            name = super(CachedS3BotoStorage, self).save(name, content)
             self.local_storage._save(name, content)
+            super(CachedS3BotoStorage, self).save(name, self.local_storage._open(name))
             return name
 
 #. Set your :attr:`~django.conf.settings.COMPRESS_STORAGE` and STATICFILES_STORAGE_
@@ -79,10 +79,19 @@ apps can be integrated.
    :attr:`~django.conf.settings.COMPRESS_URL` (e.g.
    ``"http://compressor-test.s3.amazonaws.com/"``).
 
+In the end it might look like this::
+
+    STATIC_ROOT = '/path/to/staticfiles'
+    COMPRESS_ROOT = STATIC_ROOT
+    STATICFILES_STORAGE = 'mysite.storage.CachedS3BotoStorage'
+    COMPRESS_STORAGE = STATICFILES_STORAGE
+    STATIC_URL = 'https://compressor-test.s3.amazonaws.com/'
+    COMPRESS_URL = STATIC_URL
+
 .. _CDN: http://en.wikipedia.org/wiki/Content_delivery_network
 .. _Amazon S3: https://s3.amazonaws.com/
 .. _boto: http://boto.cloudhackers.com/
-.. _django-storages-redux: http://github.com/jschneier/django-storages
+.. _django-storages: http://github.com/jschneier/django-storages
 .. _staticfiles: http://docs.djangoproject.com/en/dev/howto/static-files/
 .. _STATIC_ROOT: http://docs.djangoproject.com/en/dev/ref/settings/#static-root
 .. _STATIC_URL: http://docs.djangoproject.com/en/dev/ref/settings/#static-url

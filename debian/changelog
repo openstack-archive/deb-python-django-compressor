@@ -1,8 +1,14 @@
-python-django-compressor (2.0-5) UNRELEASED; urgency=medium
+python-django-compressor (2.1-1) unstable; urgency=medium
 
+  [ Ondřej Nový ]
   * Bumped debhelper compat version to 10
 
- -- Ondřej Nový <onovy@debian.org>  Thu, 24 Nov 2016 00:05:27 +0100
+  [ Thomas Goirand ]
+  * New upstream release:
+    - Compatible with Django 1.10 (Closes: #844921).
+  * Drop 0001-Use-argparse-instead-of-optparse.patch applied upstream.
+
+ -- Thomas Goirand <zigo@debian.org>  Sat, 03 Dec 2016 13:33:37 +0100
 
 python-django-compressor (2.0-4) unstable; urgency=medium
 

@@ -1,0 +1,17 @@
+Description: Calls self.html5lib.serialize with correct param
+Author: Thomas Goirand <zigo@debian.org>
+Bug-Debian: https://bugs.debian.org/844921
+Forwarded: no
+Last-Update: 2016-12-13
+
+--- python-django-compressor-2.1.orig/compressor/parser/html5lib.py
++++ python-django-compressor-2.1/compressor/parser/html5lib.py
+@@ -16,7 +16,7 @@ class Html5LibParser(ParserBase):
+ 
+     def _serialize(self, elem):
+         return self.html5lib.serialize(
+-            elem, tree="etree", quote_attr_values=True,
++            elem, tree="etree", quote_attr_values="legacy",
+             omit_optional_tags=False, use_trailing_solidus=True,
+         )
+ 
